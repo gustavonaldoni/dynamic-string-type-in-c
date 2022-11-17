@@ -1,0 +1,2 @@
+/usr/bin/ar qc libstring_type.a CMakeFiles/string_type.dir/string_type.c.o
+/usr/bin/ranlib libstring_type.a

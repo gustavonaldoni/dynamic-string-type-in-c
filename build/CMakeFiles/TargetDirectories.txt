@@ -1,0 +1,6 @@
+/home/gustavo/dynamic-string-type-in-c/build/CMakeFiles/STRING_TYPE.dir
+/home/gustavo/dynamic-string-type-in-c/build/CMakeFiles/edit_cache.dir
+/home/gustavo/dynamic-string-type-in-c/build/CMakeFiles/rebuild_cache.dir
+/home/gustavo/dynamic-string-type-in-c/build/string_type/CMakeFiles/string_type.dir
+/home/gustavo/dynamic-string-type-in-c/build/string_type/CMakeFiles/edit_cache.dir
+/home/gustavo/dynamic-string-type-in-c/build/string_type/CMakeFiles/rebuild_cache.dir

@@ -1,0 +1,1 @@
+/usr/bin/cc CMakeFiles/STRING_TYPE.dir/src/main.c.o -o STRING_TYPE   -L/home/gustavo/dynamic-string-type-in-c/string_type  -Wl,-rpath,/home/gustavo/dynamic-string-type-in-c/string_type string_type/libstring_type.a 
