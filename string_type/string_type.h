@@ -19,3 +19,4 @@ int stringContains(String, String);
 int stringStartsWith(String, String);
 int stringEndsWith(String, String);
 int stringAreEqual(String, String);
+String stringCopy(String);

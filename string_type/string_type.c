@@ -437,3 +437,8 @@ int stringAreEqual(String string1, String string2)
 
     return 1;
 }
+
+String stringCopy(String string)
+{
+    return stringCreate(string.content);
+}
