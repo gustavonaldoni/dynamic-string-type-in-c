@@ -283,43 +283,80 @@ String stringToUpper(String original)
     return resultString;
 }
 
+String stringCut(String string, int firstIndex, int lastIndex)
+{
+    size_t lengthResult, lengthString;
+    String resultString;
+    char *resultContent;
+    unsigned int i, j;
+
+    resultString.content = NULL;
+    resultContent = NULL;
+
+    lengthString = stringLength(string);
+
+    if (firstIndex < 0 || firstIndex > lastIndex)
+        return resultString;
+
+    if (lastIndex > lengthString - 1)
+        return resultString;
+    
+    lengthResult = (size_t)lastIndex - (size_t)firstIndex + 1;
+
+    resultContent = (char *) malloc(lengthResult + 1);
+
+    i = 0;
+    for (j = firstIndex; j <= lastIndex; j++)
+    {
+        resultContent[i] = string.content[j];
+        i++;
+    }
+
+    resultContent[lengthResult] = '\0';
+    resultString = stringCreate(resultContent);
+
+    free(resultContent);
+
+    return resultString;
+}
+
 String stringTrim(String original)
 {
-    size_t lengthOriginal, lengthResult, initIndex, endIndex, i;
+    size_t lengthOriginal, lengthResult, firstIndex, lastIndex, i;
     String resultString;
     char *resultContent;
 
     resultString.content = NULL;
     resultContent = NULL;
 
-    initIndex = 0;
-    endIndex = lengthOriginal - 1;
+    firstIndex = 0;
+    lastIndex = lengthOriginal - 1;
 
     lengthResult = 0;
 
     lengthOriginal = stringLength(original);
 
-    // Finding initIndex
+    // Finding firstIndex
     for (i = 0; i < lengthOriginal; i++)
     {
         if (original.content[i] != ' ')
         {
-            initIndex = i;
+            firstIndex = i;
             break;
         }
     }
 
-    // Finding endIndex
+    // Finding lastIndex
     for (i = lengthOriginal - 1; i >= 0; i--)
     {
         if (original.content[i] != ' ')
         {
-            endIndex = i;
+            lastIndex = i;
             break;
         }
     }
 
-    lengthResult = endIndex - initIndex + 1;
+    lengthResult = lastIndex - firstIndex + 1;
 
     resultContent = (char *)malloc(lengthResult + 1);
 
@@ -328,7 +365,7 @@ String stringTrim(String original)
 
     for (i = 0; i < lengthResult; i++)
     {
-        resultContent[i] = original.content[i + initIndex];
+        resultContent[i] = original.content[i + firstIndex];
     }
 
     resultContent[lengthResult] = '\0';

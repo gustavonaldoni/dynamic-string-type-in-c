@@ -14,6 +14,7 @@ String stringConcat(String, String);
 String stringReplace(String, String, String);
 String stringToLower(String);
 String stringToUpper(String);
+String stringCut(String, int, int);
 String stringTrim(String);
 int stringContains(String, String);
 int stringStartsWith(String, String);
