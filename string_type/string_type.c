@@ -385,7 +385,7 @@ int stringStartsWith(String original, String substring)
 
     if (lengthSubstring > lengthOriginal)
         return 0;
-    
+
     for (i = 0; i < lengthSubstring; i++)
     {
         if (original.content[i] != substring.content[i])
@@ -405,15 +405,34 @@ int stringEndsWith(String original, String substring)
 
     if (lengthSubstring > lengthOriginal)
         return 0;
-    
+
     j = lengthOriginal - 1;
-    
+
     for (i = lengthSubstring - 1; i >= 0; i--)
     {
         if (original.content[j] != substring.content[i])
             return 0;
-        
+
         j--;
+    }
+
+    return 1;
+}
+
+int stringAreEqual(String string1, String string2)
+{
+    size_t lengthString1, lengthString2, i;
+
+    lengthString1 = stringLength(string1);
+    lengthString2 = stringLength(string2);
+
+    if (lengthString1 != lengthString2)
+        return 0;
+
+    for (i = 0; i < lengthString1; i++)
+    {
+        if (string1.content[i] != string2.content[i])
+            return 0;
     }
 
     return 1;

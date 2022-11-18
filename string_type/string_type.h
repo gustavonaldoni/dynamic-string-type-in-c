@@ -17,5 +17,5 @@ String stringToUpper(String);
 String stringTrim(String);
 int stringContains(String, String);
 int stringStartsWith(String, String);
-int stringEndsWith(String original, String substring);
-
+int stringEndsWith(String, String);
+int stringAreEqual(String, String);
