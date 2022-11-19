@@ -322,17 +322,10 @@ String stringCut(String string, int firstIndex, int lastIndex)
 
 String stringTrim(String original)
 {
-    size_t lengthOriginal, lengthResult, firstIndex, lastIndex, i;
-    String resultString;
-    char *resultContent;
-
-    resultString.content = NULL;
-    resultContent = NULL;
+    size_t lengthOriginal, firstIndex, lastIndex, i;
 
     firstIndex = 0;
     lastIndex = lengthOriginal - 1;
-
-    lengthResult = 0;
 
     lengthOriginal = stringLength(original);
 
@@ -356,24 +349,7 @@ String stringTrim(String original)
         }
     }
 
-    lengthResult = lastIndex - firstIndex + 1;
-
-    resultContent = (char *)malloc(lengthResult + 1);
-
-    if (resultContent == NULL)
-        return;
-
-    for (i = 0; i < lengthResult; i++)
-    {
-        resultContent[i] = original.content[i + firstIndex];
-    }
-
-    resultContent[lengthResult] = '\0';
-    resultString = stringCreate(resultContent);
-
-    free(resultContent);
-
-    return resultString;
+    return stringCut(original, (int)firstIndex, (int)lastIndex);
 }
 
 int stringContains(String original, String substring)
