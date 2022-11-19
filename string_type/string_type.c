@@ -70,7 +70,7 @@ String stringConcat(String source, String destination)
     resultContent = (char *)malloc(lengthResult + 1);
 
     if (resultContent == NULL)
-        return;
+        return resultString;
 
     for (i = 0; i < lengthResult; i++)
     {
@@ -150,6 +150,9 @@ String stringReplace(String original, String toReplace, String replaceBy)
             lengthResult = lengthOriginal;
 
             resultContent = (char *)malloc(lengthResult + 1);
+
+            if (resultContent == NULL)
+                return resultString;
 
             for (i = 0; i < lengthResult; i++)
             {
@@ -239,7 +242,7 @@ String stringToLower(String original)
     resultContent = (char *)malloc(lengthOriginal + 1);
 
     if (resultContent == NULL)
-        return;
+        return resultString;
 
     for (i = 0; i < lengthOriginal; i++)
     {
@@ -268,7 +271,7 @@ String stringToUpper(String original)
     resultContent = (char *)malloc(lengthOriginal + 1);
 
     if (resultContent == NULL)
-        return;
+        return resultString;
 
     for (i = 0; i < lengthOriginal; i++)
     {
