@@ -9,3 +9,5 @@ add_subdirectory(string_type)
 target_include_directories(${PROJECT_NAME} PUBLIC string_type)
 target_link_directories(${PROJECT_NAME} PRIVATE string_type)
 target_link_libraries(${PROJECT_NAME} string_type)
+
+add_compile_options(-Wall -Werror)

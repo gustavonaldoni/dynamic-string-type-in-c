@@ -359,6 +359,7 @@ int stringContains(String original, String substring)
 {
     size_t lengthOriginal, lengthSubstring, i, j;
     unsigned int counter;
+    int firstIndex;
 
     lengthOriginal = stringLength(original);
     lengthSubstring = stringLength(substring);
@@ -366,11 +367,14 @@ int stringContains(String original, String substring)
     j = 0;
     counter = 0;
 
+    firstIndex = -1;
+
     for (i = 0; i < lengthOriginal; i++)
     {
         if (original.content[i] == substring.content[0])
         {
             counter += 1;
+            firstIndex = i;
 
             for (j = 1; j < lengthSubstring; j++)
             {
@@ -380,16 +384,17 @@ int stringContains(String original, String substring)
                 else
                 {
                     counter = 0;
+                    firstIndex = -1;
                     break;
                 }
             }
         }
 
         if (counter == lengthSubstring)
-            return 1;
+            return firstIndex;
     }
 
-    return 0;
+    return firstIndex;
 }
 
 int stringStartsWith(String original, String substring)
