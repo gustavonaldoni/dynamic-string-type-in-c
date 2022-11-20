@@ -90,144 +90,6 @@ String stringConcat(String source, String destination)
     return resultString;
 }
 
-String stringReplace(String original, String toReplace, String replaceBy)
-{
-    size_t lengthOriginal, lengthToReplace, lengthReplaceBy, lengthResult, i, j, d;
-    String resultString;
-    char *resultContent;
-    int counter, foundWord;
-    int firstLetterIndex, lastLetterIndex;
-
-    resultString.content = NULL;
-    resultContent = NULL;
-
-    counter = 0;
-    foundWord = 0;
-
-    firstLetterIndex = -1;
-    lastLetterIndex = -1;
-
-    lengthToReplace = stringLength(toReplace);
-    lengthOriginal = stringLength(original);
-    lengthReplaceBy = stringLength(replaceBy);
-
-    lengthResult = 0;
-
-    j = 0;
-
-    // Verify where, at 'original', we have the string 'toReplace'
-    for (i = 0; i < lengthOriginal - lengthToReplace + 1; i++)
-    {
-        if (original.content[i] != toReplace.content[j])
-        {
-            counter = 0;
-            j = 0;
-            continue;
-        }
-
-        else if (original.content[i] == toReplace.content[j])
-        {
-            counter += 1;
-            j += 1;
-        }
-
-        if (counter == lengthToReplace)
-        {
-            lastLetterIndex = i;
-            foundWord = 1;
-            break;
-        }
-    }
-
-    j = 0;
-
-    if (foundWord)
-    {
-        firstLetterIndex = lastLetterIndex - lengthToReplace + 1;
-
-        if (lengthReplaceBy == lengthToReplace)
-        {
-            lengthResult = lengthOriginal;
-
-            resultContent = (char *)malloc(lengthResult + 1);
-
-            if (resultContent == NULL)
-                return resultString;
-
-            for (i = 0; i < lengthResult; i++)
-            {
-                if (i >= firstLetterIndex && i <= lastLetterIndex)
-                {
-                    resultContent[i] = replaceBy.content[j];
-                    j += 1;
-                }
-
-                else
-                    resultContent[i] = original.content[i];
-            }
-        }
-
-        if (lengthReplaceBy > lengthToReplace)
-        {
-            d = lengthReplaceBy - lengthToReplace;
-            lengthResult = lengthOriginal + d;
-
-            resultContent = (char *)malloc(lengthResult + 1);
-
-            for (i = 0; i < lengthResult; i++)
-            {
-                if (i >= firstLetterIndex && i <= lastLetterIndex + d)
-                {
-                    resultContent[i] = replaceBy.content[j];
-                    j += 1;
-                }
-
-                else
-                {
-                    if (i > lastLetterIndex)
-                        resultContent[i] = original.content[i - d];
-
-                    else if (i < firstLetterIndex)
-                        resultContent[i] = original.content[i];
-                }
-            }
-        }
-
-        if (lengthReplaceBy < lengthToReplace)
-        {
-            d = lengthToReplace - lengthReplaceBy;
-            lengthResult = lengthOriginal - d;
-
-            resultContent = (char *)malloc(lengthResult + 1);
-
-            for (i = 0; i < lengthResult; i++)
-            {
-                if (i >= firstLetterIndex && i <= lastLetterIndex - d)
-                {
-                    resultContent[i] = replaceBy.content[j];
-                    j += 1;
-                }
-
-                else
-                {
-                    if (i < firstLetterIndex)
-                        resultContent[i] = original.content[i];
-
-                    else
-                        resultContent[i] = original.content[i + d];
-                }
-            }
-        }
-
-        resultContent[lengthResult] = '\0';
-        resultString = stringCreate(resultContent);
-
-        free(resultContent);
-    }
-
-    return resultString;
-}
-
 String stringToLower(String original)
 {
     size_t lengthOriginal, i;
@@ -395,6 +257,122 @@ int stringContains(String original, String substring)
     }
 
     return firstIndex;
+}
+
+String stringReplace(String original, String toReplace, String replaceBy)
+{
+    size_t lengthOriginal, lengthToReplace, lengthReplaceBy, lengthResult, i, j, d;
+    String resultString;
+    char *resultContent;
+    int counter, foundWord;
+    int firstLetterIndex, lastLetterIndex;
+
+    resultString.content = NULL;
+    resultContent = NULL;
+
+    counter = 0;
+    foundWord = 0;
+
+    firstLetterIndex = -1;
+    lastLetterIndex = -1;
+
+    lengthToReplace = stringLength(toReplace);
+    lengthOriginal = stringLength(original);
+    lengthReplaceBy = stringLength(replaceBy);
+
+    lengthResult = 0;
+
+    j = 0;
+    
+    firstLetterIndex = stringContains(original, toReplace);
+
+    j = 0;
+
+    if (firstLetterIndex != -1)
+    {
+        lastLetterIndex = firstLetterIndex + lengthToReplace - 1;
+
+        if (lengthReplaceBy == lengthToReplace)
+        {
+            lengthResult = lengthOriginal;
+
+            resultContent = (char *)malloc(lengthResult + 1);
+
+            if (resultContent == NULL)
+                return resultString;
+
+            for (i = 0; i < lengthResult; i++)
+            {
+                if (i >= firstLetterIndex && i <= lastLetterIndex)
+                {
+                    resultContent[i] = replaceBy.content[j];
+                    j += 1;
+                }
+
+                else
+                    resultContent[i] = original.content[i];
+            }
+        }
+
+        if (lengthReplaceBy > lengthToReplace)
+        {
+            d = lengthReplaceBy - lengthToReplace;
+            lengthResult = lengthOriginal + d;
+
+            resultContent = (char *)malloc(lengthResult + 1);
+
+            for (i = 0; i < lengthResult; i++)
+            {
+                if (i >= firstLetterIndex && i <= lastLetterIndex + d)
+                {
+                    resultContent[i] = replaceBy.content[j];
+                    j += 1;
+                }
+
+                else
+                {
+                    if (i > lastLetterIndex)
+                        resultContent[i] = original.content[i - d];
+
+                    else if (i < firstLetterIndex)
+                        resultContent[i] = original.content[i];
+                }
+            }
+        }
+
+        if (lengthReplaceBy < lengthToReplace)
+        {
+            d = lengthToReplace - lengthReplaceBy;
+            lengthResult = lengthOriginal - d;
+
+            resultContent = (char *)malloc(lengthResult + 1);
+
+            for (i = 0; i < lengthResult; i++)
+            {
+                if (i >= firstLetterIndex && i <= lastLetterIndex - d)
+                {
+                    resultContent[i] = replaceBy.content[j];
+                    j += 1;
+                }
+
+                else
+                {
+                    if (i < firstLetterIndex)
+                        resultContent[i] = original.content[i];
+
+                    else
+                        resultContent[i] = original.content[i + d];
+                }
+            }
+        }
+
+        resultContent[lengthResult] = '\0';
+        resultString = stringCreate(resultContent);
+
+        free(resultContent);
+    }
+
+    return resultString;
 }
 
 int stringStartsWith(String original, String substring)
