@@ -17,6 +17,10 @@ int main(void)
     String s9 = stringCreate("");
     String replaced = stringReplace(s7, s8, s9);
 
+    String s10 = stringCreate("AAABBBAAABBBAAABBBAAABBBAAABBB");
+    String s11 = stringCreate("AAA");
+    String s12 = stringCreate("B");
+
     printf("s1 = %s\n", s1.content);
     printf("s2 = %s\n", s2.content);
     printf("s3 = %s\n", s3.content);
@@ -25,6 +29,9 @@ int main(void)
 
     printf("s7 = %s\n", s7.content);
     printf("stringReplace(s7, s8, s9) = %s\n", replaced.content);
+
+    printf("s10 = %s\n", s10.content);
+    printf("%s exists %d times inside s10\n", s12.content, stringCounts(s10, s12));
 
     stringDestroy(&s1);
     stringDestroy(&s2);
@@ -37,6 +44,9 @@ int main(void)
     stringDestroy(&s8);
     stringDestroy(&s9);
     stringDestroy(&replaced);
+    stringDestroy(&s10);
+    stringDestroy(&s11);
+    stringDestroy(&s12);
 
     return 0;
 }

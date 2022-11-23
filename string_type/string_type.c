@@ -441,3 +441,45 @@ String stringCopy(String string)
 {
     return stringCreate(string.content);
 }
+
+int stringCounts(String original, String substring)
+{
+    size_t lengthOriginal, lengthSubstring, i, j;
+    unsigned int counter, counterResult;
+
+    lengthOriginal = stringLength(original);
+    lengthSubstring = stringLength(substring);
+
+    j = 0;
+    counter = 0;
+    counterResult = 0;
+
+    for (i = 0; i < lengthOriginal; i++)
+    {
+        if (original.content[i] == substring.content[0])
+        {
+            counter += 1;
+
+            for (j = 1; j < lengthSubstring; j++)
+            {
+                if (original.content[i + j] == substring.content[j])
+                    counter += 1;
+
+                else
+                {
+                    counter = 0;
+                    break;
+                }
+            }
+        }
+
+        if (counter == lengthSubstring)
+        {
+            counter = 0;
+            counterResult += 1;
+        }
+            
+    }
+
+    return counterResult;
+}
