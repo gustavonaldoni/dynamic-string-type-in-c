@@ -483,3 +483,32 @@ int stringCounts(String original, String substring)
 
     return counterResult;
 }
+
+String stringReverse(String string)
+{
+    size_t lengthString, i, j;
+    String resultString;
+    char *resultContent;
+
+    resultString.content = NULL;
+    resultContent = NULL;
+
+    lengthString = stringLength(string);
+
+    if (lengthString == 0)
+        return resultString;
+
+    resultContent = (char *) malloc(lengthString + 1);
+
+    j = lengthString - 1;
+    for (i = 0; i < lengthString; i++)
+    {
+        resultContent[i] = string.content[j];
+        j--;
+    }
+
+    resultContent[lengthString] = '\0';
+    resultString = stringCreate(resultContent);
+
+    free(resultContent);
+}

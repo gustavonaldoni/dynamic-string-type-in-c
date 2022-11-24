@@ -22,3 +22,4 @@ int stringEndsWith(String, String);
 int stringAreEqual(String, String);
 String stringCopy(String);
 int stringCounts(String, String);
+String stringReverse(String);
