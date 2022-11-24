@@ -3,6 +3,8 @@
 
 int main(void)
 {
+    String nothing = stringCreate("");
+
     String s1 = stringCreate("String test!");
     String s2 = stringCopy(s1);
     String s3 = stringCut(s2, 0, 7);
@@ -21,6 +23,9 @@ int main(void)
     String s11 = stringCreate("AAA");
     String s12 = stringCreate("B");
 
+    String reversed = stringReverse(s7);
+    String reversedNothing = stringReverse(nothing);
+
     printf("s1 = %s\n", s1.content);
     printf("s2 = %s\n", s2.content);
     printf("s3 = %s\n", s3.content);
@@ -28,11 +33,14 @@ int main(void)
     printf("stringContains(s5, s6) = %d\n\n", stringContains(s5, s6));
 
     printf("s7 = %s\n", s7.content);
+    printf("stringReverse(s7) = %s\n", reversed.content);
+    printf("stringReverse(nothing) = %s\n", nothing.content);
     printf("stringReplace(s7, s8, s9) = %s\n", replaced.content);
 
     printf("s10 = %s\n", s10.content);
     printf("%s exists %d times inside s10\n", s12.content, stringCounts(s10, s12));
 
+    stringDestroy(&nothing);
     stringDestroy(&s1);
     stringDestroy(&s2);
     stringDestroy(&s3);
@@ -47,6 +55,7 @@ int main(void)
     stringDestroy(&s10);
     stringDestroy(&s11);
     stringDestroy(&s12);
+    stringDestroy(&reversed);
 
     return 0;
 }

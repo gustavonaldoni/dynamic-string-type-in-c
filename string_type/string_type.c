@@ -511,4 +511,6 @@ String stringReverse(String string)
     resultString = stringCreate(resultContent);
 
     free(resultContent);
+
+    return resultString;
 }
