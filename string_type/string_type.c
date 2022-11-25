@@ -526,7 +526,7 @@ String stringReverse(String string)
     return resultString;
 }
 
-int stringIndexOf(String string, char character)
+int stringFirstIndexOf(String string, char character)
 {
     size_t lengthString, i;
     int resultIndex;
