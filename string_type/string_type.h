@@ -10,6 +10,7 @@ typedef struct
 String stringCreate(char *);
 int stringDestroy(String *);
 size_t stringLength(String);
+char stringCharAt(String, unsigned int);
 String stringConcat(String, String);
 String stringReplace(String, String, String);
 String stringToLower(String);

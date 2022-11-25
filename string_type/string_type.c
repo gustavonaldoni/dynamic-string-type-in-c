@@ -54,6 +54,18 @@ size_t stringLength(String string)
     return i;
 }
 
+char stringCharAt(String string, unsigned int index)
+{
+    size_t lengthString;
+
+    lengthString = stringLength(string);
+
+    if (index > stringLength - 1)
+        return -1;
+
+    return string.content[index];
+}
+
 String stringConcat(String source, String destination)
 {
     size_t lengthSource, lengthDestination, lengthResult, i;
