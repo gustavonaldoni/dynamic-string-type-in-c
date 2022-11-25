@@ -177,10 +177,10 @@ String stringCut(String string, int firstIndex, int lastIndex)
 
     if (lastIndex > lengthString - 1)
         return resultString;
-    
+
     lengthResult = (size_t)lastIndex - (size_t)firstIndex + 1;
 
-    resultContent = (char *) malloc(lengthResult + 1);
+    resultContent = (char *)malloc(lengthResult + 1);
 
     i = 0;
     for (j = firstIndex; j <= lastIndex; j++)
@@ -295,7 +295,7 @@ String stringReplace(String original, String toReplace, String replaceBy)
     lengthResult = 0;
 
     j = 0;
-    
+
     firstLetterIndex = stringContains(original, toReplace);
 
     j = 0;
@@ -490,7 +490,6 @@ int stringCounts(String original, String substring)
             counter = 0;
             counterResult += 1;
         }
-            
     }
 
     return counterResult;
@@ -510,7 +509,7 @@ String stringReverse(String string)
     if (lengthString == 0)
         return resultString;
 
-    resultContent = (char *) malloc(lengthString + 1);
+    resultContent = (char *)malloc(lengthString + 1);
 
     j = lengthString - 1;
     for (i = 0; i < lengthString; i++)
@@ -525,4 +524,41 @@ String stringReverse(String string)
     free(resultContent);
 
     return resultString;
+}
+
+int stringIndexOf(String string, char character)
+{
+    size_t lengthString, i;
+    int resultIndex;
+
+    lengthString = stringLength(string);
+    resultIndex = -1;
+
+    for (i = 0; i < lengthString; i++)
+    {
+        if (string.content[i] == character)
+        {
+            resultIndex = (int)i;
+            return resultIndex;
+        }
+    }
+
+    return resultIndex;
+}
+
+int stringLastIndexOf(String string, char character)
+{
+    size_t lengthString, i;
+    int resultIndex;
+
+    lengthString = stringLength(string);
+    resultIndex = -1;
+
+    for (i = 0; i < lengthString; i++)
+    {
+        if (string.content[i] == character)
+            resultIndex = (int)i;
+    }
+
+    return resultIndex;
 }

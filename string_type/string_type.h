@@ -24,3 +24,5 @@ int stringAreEqual(String, String);
 String stringCopy(String);
 int stringCounts(String, String);
 String stringReverse(String);
+int stringIndexOf(String, char);
+int stringLastIndexOf(String, char);
