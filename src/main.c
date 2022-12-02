@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include <string_type.h>
+#include "string_type.h"
 
 int main(void)
 {
@@ -24,7 +24,6 @@ int main(void)
     String s12 = stringCreate("B");
 
     String reversed = stringReverse(s7);
-    String reversedNothing = stringReverse(nothing);
 
     printf("s1 = %s\n", s1.content);
     printf("s2 = %s\n", s2.content);

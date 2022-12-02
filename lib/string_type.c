@@ -60,7 +60,7 @@ char stringCharAt(String string, unsigned int index)
 
     lengthString = stringLength(string);
 
-    if (index > stringLength - 1)
+    if (index > lengthString - 1)
         return -1;
 
     return string.content[index];
@@ -201,10 +201,10 @@ String stringTrim(String original)
 {
     size_t lengthOriginal, firstIndex, lastIndex, i;
 
+    lengthOriginal = stringLength(original);
+
     firstIndex = 0;
     lastIndex = lengthOriginal - 1;
-
-    lengthOriginal = stringLength(original);
 
     // Finding firstIndex
     for (i = 0; i < lengthOriginal; i++)
@@ -276,14 +276,10 @@ String stringReplace(String original, String toReplace, String replaceBy)
     size_t lengthOriginal, lengthToReplace, lengthReplaceBy, lengthResult, i, j, d;
     String resultString;
     char *resultContent;
-    int counter, foundWord;
     int firstLetterIndex, lastLetterIndex;
 
     resultString.content = NULL;
     resultContent = NULL;
-
-    counter = 0;
-    foundWord = 0;
 
     firstLetterIndex = -1;
     lastLetterIndex = -1;

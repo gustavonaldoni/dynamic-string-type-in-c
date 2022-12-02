@@ -1,1 +1,0 @@
-add_library(string_type string_type.c)
