@@ -393,6 +393,9 @@ int stringStartsWith(String original, String substring)
     if (lengthSubstring > lengthOriginal)
         return 0;
 
+    if (lengthSubstring == 0 || lengthOriginal == 0)
+        return 0;
+
     for (i = 0; i < lengthSubstring; i++)
     {
         if (original.content[i] != substring.content[i])
@@ -411,6 +414,9 @@ int stringEndsWith(String original, String substring)
     lengthSubstring = stringLength(substring);
 
     if (lengthSubstring > lengthOriginal)
+        return 0;
+
+    if (lengthSubstring == 0 || lengthOriginal == 0)
         return 0;
 
     j = lengthOriginal - 1;
