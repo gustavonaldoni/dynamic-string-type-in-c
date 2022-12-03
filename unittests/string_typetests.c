@@ -182,6 +182,30 @@ Test(stringTests, trim)
     stringDestroy(&t4);
 }
 
+Test(stringTests, contains)
+{
+    String s1 = stringCreate("Abbccdefg13^");
+
+    String c1 = stringCreate("Abbc");
+    String c2 = stringCreate("Abc");
+    String c3 = stringCreate("13^");
+    String c4 = stringCreate("");
+    String c5 = stringCreate("defg13");
+
+    cr_expect(stringContains(s1, c1) == 0);
+    cr_expect(stringContains(s1, c2) == -1);
+    cr_expect(stringContains(s1, c3) == 9);
+    cr_expect(stringContains(s1, c4) == -1);
+    cr_expect(stringContains(s1, c5) == 5);
+
+    stringDestroy(&s1);
+    stringDestroy(&c1);
+    stringDestroy(&c2);
+    stringDestroy(&c3);
+    stringDestroy(&c4);
+    stringDestroy(&c5);
+}
+
 Test(stringTests, replace)
 {
     String s1 = stringCreate("American");
@@ -220,4 +244,64 @@ Test(stringTests, replace)
     stringDestroy(&r4);
     stringDestroy(&r5);
     stringDestroy(&r6);
+}
+
+Test(stringTests, startsWith)
+{
+    String s1 = stringCreate("Abbccdefg13^");
+
+    String i1 = stringCreate("Abbc");
+    String i2 = stringCreate("123");
+    String i3 = stringCreate("13^");
+    String i4 = stringCreate("Ab");
+    String i5 = stringCreate("Abbccdefg13^");
+    String i6 = stringCreate("Abbccdefg13^9999");
+    String i7 = stringCreate("");
+
+    cr_expect(stringStartsWith(s1, i1) == 1);
+    cr_expect(stringStartsWith(s1, i2) == 0);
+    cr_expect(stringStartsWith(s1, i3) == 0);
+    cr_expect(stringStartsWith(s1, i4) == 1);
+    cr_expect(stringStartsWith(s1, i5) == 1);
+    cr_expect(stringStartsWith(s1, i6) == 0);
+    cr_expect(stringStartsWith(s1, i7) == 0);
+    cr_expect(stringStartsWith(i7, s1) == 0);
+
+    stringDestroy(&s1);
+    stringDestroy(&i1);
+    stringDestroy(&i2);
+    stringDestroy(&i3);
+    stringDestroy(&i4);
+    stringDestroy(&i5);
+    stringDestroy(&i6);
+}
+
+Test(stringTests, endsWith)
+{
+    String s1 = stringCreate("Abbccdefg13^");
+
+    String e1 = stringCreate("Abbc");
+    String e2 = stringCreate("123");
+    String e3 = stringCreate("fg13^");
+    String e4 = stringCreate("^");
+    String e5 = stringCreate("Abbccdefg13^");
+    String e6 = stringCreate("Abbccdefg13^9999");
+    String e7 = stringCreate("");
+
+    cr_expect(stringEndsWith(s1, e1) == 0);
+    cr_expect(stringEndsWith(s1, e2) == 0);
+    cr_expect(stringEndsWith(s1, e3) == 1);
+    cr_expect(stringEndsWith(s1, e4) == 1);
+    cr_expect(stringEndsWith(s1, e5) == 1);
+    cr_expect(stringEndsWith(s1, e6) == 0);
+    cr_expect(stringEndsWith(s1, e7) == 0);
+    cr_expect(stringEndsWith(e7, s1) == 0);
+
+    stringDestroy(&s1);
+    stringDestroy(&e1);
+    stringDestroy(&e2);
+    stringDestroy(&e3);
+    stringDestroy(&e4);
+    stringDestroy(&e5);
+    stringDestroy(&e6);
 }
