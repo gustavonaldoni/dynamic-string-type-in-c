@@ -1,28 +1,6 @@
 #include "criterion/criterion.h"
 #include "string_type.h"
 
-/*
-String stringCreate(char *); OK
-int stringDestroy(String *); OK
-size_t stringLength(String); OK
-char stringCharAt(String, unsigned int); OK
-String stringConcat(String, String); OK
-String stringReplace(String, String, String);
-String stringToLower(String);
-String stringToUpper(String);
-String stringCut(String, int, int);
-String stringTrim(String);
-int stringContains(String, String);
-int stringStartsWith(String, String);
-int stringEndsWith(String, String);
-int stringAreEqual(String, String);
-String stringCopy(String);
-int stringCounts(String, String);
-String stringReverse(String);
-int stringFirstIndexOf(String, char);
-int stringLastIndexOf(String, char);
-*/
-
 Test(stringTests, creation)
 {
     String baseString = stringCreate("Base string!");
@@ -63,6 +41,7 @@ Test(stringTests, charAt)
     cr_expect(stringCharAt(string, 4) == 'D');
     cr_expect(stringCharAt(string, 5) == 'E');
     cr_expect(stringCharAt(string, 6) == '.');
+    cr_expect(stringCharAt(string, 49) == -1);
 
     stringDestroy(&string);
 }
@@ -90,6 +69,117 @@ Test(stringTests, concat)
     stringDestroy(&c2);
     stringDestroy(&c3);
     stringDestroy(&c4);
+}
+
+Test(stringTests, toLower)
+{
+    String s1 = stringCreate("aBcDeFg134");
+    String s2 = stringCreate("adcvf");
+    String s3 = stringCreate("1ç^S");
+
+    String t1 = stringToLower(s1);
+    String t2 = stringToLower(s2);
+    String t3 = stringToLower(s3);
+
+    cr_expect(strcmp(t1.content, "abcdefg134") == 0);
+    cr_expect(strcmp(t2.content, "adcvf") == 0);
+    cr_expect(strcmp(t3.content, "1ç^s") == 0);
+
+    stringDestroy(&s1);
+    stringDestroy(&s2);
+    stringDestroy(&s3);
+    stringDestroy(&t1);
+    stringDestroy(&t2);
+    stringDestroy(&t3);
+}
+
+Test(stringTests, toUpper)
+{
+    String s1 = stringCreate("aBcDeFg134");
+    String s2 = stringCreate("ADC43");
+    String s3 = stringCreate("1ç^sab");
+
+    String t1 = stringToUpper(s1);
+    String t2 = stringToUpper(s2);
+    String t3 = stringToUpper(s3);
+
+    cr_expect(strcmp(t1.content, "ABCDEFG134") == 0);
+    cr_expect(strcmp(t2.content, "ADC43") == 0);
+    cr_expect(strcmp(t3.content, "1ç^SAB") == 0);
+
+    stringDestroy(&s1);
+    stringDestroy(&s2);
+    stringDestroy(&s3);
+    stringDestroy(&t1);
+    stringDestroy(&t2);
+    stringDestroy(&t3);
+}
+
+Test(stringTests, cut)
+{
+    String s1 = stringCreate("This is a string!");
+    String s2 = stringCreate("AaBbCcDdEeFfGg");
+
+    String c1 = stringCut(s1, 0, 16);
+    String c2 = stringCut(s1, 10, 13);
+    String c3 = stringCut(s2, 2, 13);
+    String c4 = stringCut(s2, 1, 1);
+    String c5 = stringCut(s2, 0, 0);
+    String c6 = stringCut(s2, 13, 13);
+
+    String err1 = stringCut(s1, 10, 8);
+    String err2 = stringCut(s1, -1, 8);
+    String err3 = stringCut(s1, 4, 49);
+
+    cr_expect(strcmp(c1.content, "This is a string!") == 0);
+    cr_expect(strcmp(c2.content, "stri") == 0);
+    cr_expect(strcmp(c3.content, "BbCcDdEeFfGg") == 0);
+    cr_expect(strcmp(c4.content, "a") == 0);
+    cr_expect(strcmp(c5.content, "A") == 0);
+    cr_expect(strcmp(c6.content, "g") == 0);
+
+    cr_expect(err1.content == NULL);
+    cr_expect(err2.content == NULL);
+    cr_expect(err3.content == NULL);
+
+    stringDestroy(&s1);
+    stringDestroy(&s2);
+    stringDestroy(&c1);
+    stringDestroy(&c2);
+    stringDestroy(&c3);
+    stringDestroy(&c4);
+    stringDestroy(&c5);
+    stringDestroy(&c6);
+    stringDestroy(&err1);
+    stringDestroy(&err2);
+    stringDestroy(&err3);
+}
+
+Test(stringTests, trim)
+{
+    String s1 = stringCreate(" AaBb    ");
+    String s2 = stringCreate("AaBb ");
+    String s3 = stringCreate("   AaBb");
+    String s4 = stringCreate("AaBb");
+
+    String t1 = stringTrim(s1);
+    String t2 = stringTrim(s2);
+    String t3 = stringTrim(s3);
+    String t4 = stringTrim(s4);
+
+    cr_expect(strcmp(t1.content, "AaBb") == 0);
+    cr_expect(strcmp(t2.content, "AaBb") == 0);
+    cr_expect(strcmp(t3.content, "AaBb") == 0);
+    cr_expect(strcmp(t4.content, "AaBb") == 0);
+
+    stringDestroy(&s1);
+    stringDestroy(&s2);
+    stringDestroy(&s3);
+    stringDestroy(&s4);
+    stringDestroy(&t1);
+    stringDestroy(&t2);
+    stringDestroy(&t3);
+    stringDestroy(&t4);
 }
 
 Test(stringTests, replace)
