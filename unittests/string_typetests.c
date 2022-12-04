@@ -329,6 +329,48 @@ Test(stringTests, areEqual)
     stringDestroy(&s6);
 }
 
+Test(stringTests, copy)
+{
+    String s1 = stringCreate("Aaabbb");
+    String s2 = stringCopy(s1);
+    String s3 = stringCreateEmpty();
+    String s4 = stringCopy(s3);
+
+    cr_expect(stringAreEqual(s1, s2) == 1);
+    cr_expect(stringAreEqual(s3, s4) == 1);
+
+    stringDestroy(&s1);
+    stringDestroy(&s2);
+    stringDestroy(&s3);
+    stringDestroy(&s4);
+}
+
+Test(stringTests, counts)
+{
+    String s1 = stringCreate("AAaaBBbbAAaaBBbbAAaaBBbbXYZ^");
+    String s2 = stringCreate("AA");
+    String s3 = stringCreate("aBB");
+    String s4 = stringCreate("CDCD");
+    String s5 = stringCreateEmpty();
+    String s6 = stringCreate("XYZ^");
+    String s7 = stringCreate("A");
+
+    cr_expect(stringCounts(s1, s2) == 3);
+    cr_expect(stringCounts(s1, s3) == 3);
+    cr_expect(stringCounts(s1, s4) == 0);
+    cr_expect(stringCounts(s1, s5) == 0);
+    cr_expect(stringCounts(s1, s6) == 1);
+    cr_expect(stringCounts(s1, s7) == 6);
+
+    stringDestroy(&s1);
+    stringDestroy(&s2);
+    stringDestroy(&s3);
+    stringDestroy(&s4);
+    stringDestroy(&s5);
+    stringDestroy(&s6);
+    stringDestroy(&s7);
+}
+
 Test(stringTests, createEmpty)
 {
     String s1 = stringCreate("");
