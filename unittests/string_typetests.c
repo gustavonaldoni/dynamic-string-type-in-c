@@ -305,3 +305,53 @@ Test(stringTests, endsWith)
     stringDestroy(&e5);
     stringDestroy(&e6);
 }
+
+Test(stringTests, areEqual)
+{
+    String s1 = stringCreate("Ab12^cça*)");
+    String s2 = stringCreate("Ab12^cça*)");
+    String s3 = stringCreate("Ab^cça*");
+    String s4 = stringCreate("ghhgdehgaaaaaaaaaaa");
+    String s5 = stringCreate("");
+    String s6 = stringCreate("");
+
+    cr_expect(stringAreEqual(s1, s2) == 1);
+    cr_expect(stringAreEqual(s1, s3) == 0);
+    cr_expect(stringAreEqual(s1, s4) == 0);
+    cr_expect(stringAreEqual(s1, s5) == 0);
+    cr_expect(stringAreEqual(s5, s6) == 1);
+
+    stringDestroy(&s1);
+    stringDestroy(&s2);
+    stringDestroy(&s3);
+    stringDestroy(&s4);
+    stringDestroy(&s5);
+    stringDestroy(&s6);
+}
+
+Test(stringTests, createEmpty)
+{
+    String s1 = stringCreate("");
+    String s2 = stringCreateEmpty();
+
+    cr_expect(s2.content != NULL);
+    cr_expect(stringAreEqual(s1, s2) == 1);
+
+    stringDestroy(&s1);
+    stringDestroy(&s2);
+}
+
+Test(stringTests, isEmpty)
+{
+    String s1 = stringCreate("");
+    String s2 = stringCreate("Aa457643^vfcv");
+    String s3 = stringCreate("&");
+
+    cr_expect(stringIsEmpty(s1) == 1);
+    cr_expect(stringIsEmpty(s2) == 0);
+    cr_expect(stringIsEmpty(s3) == 0);
+
+    stringDestroy(&s1);
+    stringDestroy(&s2);
+    stringDestroy(&s3);
+}
