@@ -26,3 +26,5 @@ int stringCounts(String, String);
 String stringReverse(String);
 int stringFirstIndexOf(String, char);
 int stringLastIndexOf(String, char);
+String stringCreateEmpty();
+int stringIsEmpty(String);

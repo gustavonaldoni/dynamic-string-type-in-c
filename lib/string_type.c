@@ -37,6 +37,7 @@ int stringDestroy(String *string)
         return 0;
 
     free(aux);
+    aux = NULL;
     return 1;
 }
 
@@ -563,4 +564,19 @@ int stringLastIndexOf(String string, char character)
     }
 
     return resultIndex;
+}
+
+String stringCreateEmpty()
+{
+    return stringCreate("");
+}
+
+int stringIsEmpty(String string)
+{
+    String emptyString = stringCreateEmpty();
+    int result = stringAreEqual(string, emptyString);
+
+    stringDestroy(&emptyString);
+
+    return result;
 }
