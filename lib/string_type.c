@@ -469,6 +469,9 @@ int stringCounts(String original, String substring)
     counter = 0;
     counterResult = 0;
 
+    if (lengthOriginal == 0 || lengthSubstring == 0)
+        return 0;
+
     for (i = 0; i < lengthOriginal; i++)
     {
         if (original.content[i] == substring.content[0])
