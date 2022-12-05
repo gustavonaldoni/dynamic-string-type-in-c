@@ -384,6 +384,17 @@ Test(stringTests, firstIndexOf)
     stringDestroy(&s1);
 }
 
+Test(stringTests, lastIndexOf)
+{
+    String s1 = stringCreate("AAAABBBBBCCCCC   Efg");
+
+    cr_expect(stringLastIndexOf(s1, 'C') == 13);
+    cr_expect(stringLastIndexOf(s1, 'A') == 3);
+    cr_expect(stringLastIndexOf(s1, ' ') == 16);
+
+    stringDestroy(&s1);
+}
+
 Test(stringTests, createEmpty)
 {
     String s1 = stringCreate("");
