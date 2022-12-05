@@ -371,6 +371,19 @@ Test(stringTests, counts)
     stringDestroy(&s7);
 }
 
+Test(stringTests, firstIndexOf)
+{
+    String s1 = stringCreate("Hello, my friend.");
+
+    cr_expect(stringFirstIndexOf(s1, 'l') == 2);
+    cr_expect(stringFirstIndexOf(s1, 'e') == 1);
+    cr_expect(stringFirstIndexOf(s1, 'i') == 12);
+    cr_expect(stringFirstIndexOf(s1, 'J') == -1);
+    cr_expect(stringFirstIndexOf(s1, '2') == -1);
+
+    stringDestroy(&s1);
+}
+
 Test(stringTests, createEmpty)
 {
     String s1 = stringCreate("");
