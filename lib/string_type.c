@@ -513,7 +513,10 @@ String stringReverse(String string)
     lengthString = stringLength(string);
 
     if (lengthString == 0)
+    {
+        resultString = stringCreateEmpty();
         return resultString;
+    }
 
     resultContent = (char *)malloc(lengthString + 1);
 
