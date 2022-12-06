@@ -371,6 +371,23 @@ Test(stringTests, counts)
     stringDestroy(&s7);
 }
 
+Test(stringTests, reverse)
+{
+    String s1 = stringCreate("ABCDEFG19^.l");
+    String s2 = stringCreateEmpty();
+
+    String r1 = stringReverse(s1);
+    String r2 = stringReverse(s2);
+
+    cr_expect(strcmp(r1.content, "l.^91GFEDCBA") == 0);
+    cr_expect(strcmp(r2.content, "") == 0);
+
+    stringDestroy(&s1);
+    stringDestroy(&s2);
+    stringDestroy(&r1);
+    stringDestroy(&r2);
+}
+
 Test(stringTests, firstIndexOf)
 {
     String s1 = stringCreate("Hello, my friend.");
@@ -391,6 +408,7 @@ Test(stringTests, lastIndexOf)
     cr_expect(stringLastIndexOf(s1, 'C') == 13);
     cr_expect(stringLastIndexOf(s1, 'A') == 3);
     cr_expect(stringLastIndexOf(s1, ' ') == 16);
+    cr_expect(stringLastIndexOf(s1, 'B') == 8);
 
     stringDestroy(&s1);
 }
