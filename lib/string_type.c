@@ -555,6 +555,32 @@ int stringFirstIndexOf(String string, char character)
     return resultIndex;
 }
 
+int stringCutIndexOf(String string, char character, int startIndex, int endIndex)
+{
+    size_t lengthString, i;
+    int resultIndex;
+
+    lengthString = stringLength(string);
+    resultIndex = -1;
+
+    if (startIndex >= lengthString || startIndex > endIndex)
+        return resultIndex;
+
+    if (endIndex >= lengthString || endIndex < startIndex)
+        return resultIndex;
+
+    for (i = startIndex; i < endIndex + 1; i++)
+    {
+        if (string.content[i] == character)
+        {
+            resultIndex = (int)i;
+            return resultIndex;
+        }
+    }
+
+    return resultIndex;
+}
+
 int stringLastIndexOf(String string, char character)
 {
     size_t lengthString, i;
@@ -585,4 +611,8 @@ int stringIsEmpty(String string)
     stringDestroy(&emptyString);
 
     return result;
+}
+
+void stringSplit(String stringArray[], int size, String string, char separator)
+{
 }

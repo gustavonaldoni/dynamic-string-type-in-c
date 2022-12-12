@@ -413,6 +413,26 @@ Test(stringTests, lastIndexOf)
     stringDestroy(&s1);
 }
 
+Test(stringTests, cutIndexOf)
+{
+    String s1 = stringCreate("AAAABBBBBCCCCCEfg");
+
+    cr_expect(stringCutIndexOf(s1, 'A', 1, 5) == 1);
+    cr_expect(stringCutIndexOf(s1, 'B', 3, 8) == 4);
+    cr_expect(stringCutIndexOf(s1, 'B', 6, 16) == 6);
+    cr_expect(stringCutIndexOf(s1, 'g', 0, 16) == 16);
+    cr_expect(stringCutIndexOf(s1, 'C', 0, 12) == 9);
+    cr_expect(stringCutIndexOf(s1, 'A', 10, 14) == -1);
+    cr_expect(stringCutIndexOf(s1, 'B', 9, 10) == -1);
+    cr_expect(stringCutIndexOf(s1, 'B', 34, 0) == -1);
+    cr_expect(stringCutIndexOf(s1, '+', 0, 16) == -1);
+    cr_expect(stringCutIndexOf(s1, 'B', -34, 16) == -1);
+    cr_expect(stringCutIndexOf(s1, 'B', 0, 169) == -1);
+    cr_expect(stringCutIndexOf(s1, 'B', 10, 8) == -1);
+
+    stringDestroy(&s1);
+}
+
 Test(stringTests, createEmpty)
 {
     String s1 = stringCreate("");
