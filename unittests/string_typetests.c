@@ -152,6 +152,7 @@ Test(stringTests, cut)
     stringDestroy(&c4);
     stringDestroy(&c5);
     stringDestroy(&c6);
+    stringDestroy(&c7);
     stringDestroy(&err1);
     stringDestroy(&err2);
     stringDestroy(&err3);
@@ -460,4 +461,29 @@ Test(stringTests, isEmpty)
     stringDestroy(&s1);
     stringDestroy(&s2);
     stringDestroy(&s3);
+}
+
+Test(stringTests, split)
+{
+    int i;
+
+    String s1 = stringCreate("Ranuman,34,writter;Adriano,23,nurse;Gabriel,67,doctor;");
+    int r1Size = 0;
+    String *r1 = stringSplit(s1, ";", &r1Size);
+
+    cr_expect(strcmp(r1[0].content, "Ranuman,34,writter") == 0);
+    cr_expect(strcmp(r1[1].content, "Adriano,23,nurse") == 0);
+    cr_expect(strcmp(r1[2].content, "Gabriel,67,doctor") == 0);
+    cr_expect(r1Size == 3);
+
+    cr_expect(strcmp(r1[0].content, "numan,34,writte") != 0);
+    cr_expect(strcmp(r1[1].content, "Adriano,23") != 0);
+    cr_expect(strcmp(r1[2].content, "67,doctor") != 0);
+
+    for (i = 0; i < 3; i++)
+    {
+        stringDestroy(&r1[i]);
+    }
+
+    stringDestroy(&s1);
 }

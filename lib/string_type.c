@@ -613,9 +613,44 @@ int stringIsEmpty(String string)
     return result;
 }
 
-String *stringSplit(String string, char separator)
+String *stringSplit(String string, char *separator, int *resultArraySize)
 {
-    String *a = NULL;
+    String copy;
+    unsigned int counter;
+    char *token;
+    String *result;
+    int i;
 
-    return a;
+    copy.content = NULL;
+    counter = 0;
+    token = NULL;
+    result = NULL;
+
+    copy = stringCopy(string);
+
+    token = strtok(string.content, separator);
+    while (token != NULL)
+    {
+        counter++;
+        token = strtok(NULL, separator);
+    }
+
+    token = NULL;
+    result = (String *) malloc(counter * sizeof(String));
+
+    if (result == NULL)
+        return NULL;
+
+    token = strtok(copy.content, separator);
+
+    i = 0;
+    while (token != NULL)
+    {
+        result[i] = stringCreate(token);
+        token = strtok(NULL, separator);
+        i++;
+    }
+
+    *resultArraySize = counter;
+    return result;
 }
