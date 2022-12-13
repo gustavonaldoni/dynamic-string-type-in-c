@@ -613,6 +613,9 @@ int stringIsEmpty(String string)
     return result;
 }
 
-void stringSplit(String stringArray[], int size, String string, char separator)
+String *stringSplit(String string, char separator)
 {
+    String *a = NULL;
+
+    return a;
 }

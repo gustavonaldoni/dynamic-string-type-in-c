@@ -126,6 +126,7 @@ Test(stringTests, cut)
     String c4 = stringCut(s2, 1, 1);
     String c5 = stringCut(s2, 0, 0);
     String c6 = stringCut(s2, 13, 13);
+    String c7 = stringCut(s2, 3, 4);
 
     String err1 = stringCut(s1, 10, 8);
     String err2 = stringCut(s1, -1, 8);
@@ -137,6 +138,7 @@ Test(stringTests, cut)
     cr_expect(strcmp(c4.content, "a") == 0);
     cr_expect(strcmp(c5.content, "A") == 0);
     cr_expect(strcmp(c6.content, "g") == 0);
+    cr_expect(strcmp(c7.content, "bC") == 0);
 
     cr_expect(err1.content == NULL);
     cr_expect(err2.content == NULL);
