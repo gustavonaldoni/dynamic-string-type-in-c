@@ -471,19 +471,68 @@ Test(stringTests, split)
     int r1Size = 0;
     String *r1 = stringSplit(s1, ";", &r1Size);
 
+    String s2 = stringCreate("BAA,GGG,HTP,aaa123,aa");
+    int r2Size = 0;
+    String *r2 = stringSplit(s2, ",", &r2Size);
+
+    String s3 = stringCreate("Fake leash - trewytrew - trewtr - ttrwetr -");
+    int r3Size = 0;
+    String *r3 = stringSplit(s3, "-", &r3Size);
+
+    String s4 = stringCreate("layer,,baby 9890-,, 6754376 ,, 6");
+    int r4Size = 0;
+    String *r4 = stringSplit(s4, ",,", &r4Size);
+
+    String s5 = stringCreate("---- dfdda543fda* ----dcfggh");
+    int r5Size = 0;
+    String *r5 = stringSplit(s5, "----", &r5Size);
+
     cr_expect(strcmp(r1[0].content, "Ranuman,34,writter") == 0);
     cr_expect(strcmp(r1[1].content, "Adriano,23,nurse") == 0);
     cr_expect(strcmp(r1[2].content, "Gabriel,67,doctor") == 0);
     cr_expect(r1Size == 3);
 
-    cr_expect(strcmp(r1[0].content, "numan,34,writte") != 0);
-    cr_expect(strcmp(r1[1].content, "Adriano,23") != 0);
-    cr_expect(strcmp(r1[2].content, "67,doctor") != 0);
+    cr_expect(strcmp(r2[0].content, "BAA") == 0);
+    cr_expect(strcmp(r2[1].content, "GGG") == 0);
+    cr_expect(strcmp(r2[2].content, "HTP") == 0);
+    cr_expect(strcmp(r2[3].content, "aaa123") == 0);
+    cr_expect(strcmp(r2[4].content, "aa") == 0);
+    cr_expect(r2Size == 5);
 
-    for (i = 0; i < 3; i++)
-    {
+    cr_expect(strcmp(r3[0].content, "Fake leash ") == 0);
+    cr_expect(strcmp(r3[1].content, " trewytrew ") == 0);
+    cr_expect(strcmp(r3[2].content, " trewtr ") == 0);
+    cr_expect(strcmp(r3[3].content, " ttrwetr ") == 0);
+    cr_expect(r3Size == 4);
+
+    cr_expect(strcmp(r4[0].content, "layer") == 0);
+    cr_expect(strcmp(r4[1].content, "baby 9890-") == 0);
+    cr_expect(strcmp(r4[2].content, " 6754376 ") == 0);
+    cr_expect(strcmp(r4[3].content, " 6") == 0);
+    cr_expect(r4Size == 4);
+
+    cr_expect(strcmp(r5[0].content, " dfdda543fda* ") == 0);
+    cr_expect(strcmp(r5[1].content, "dcfggh") == 0);
+    cr_expect(r5Size == 2);
+
+    for (i = 0; i < r1Size; i++)
         stringDestroy(&r1[i]);
-    }
+
+    for (i = 0; i < r2Size; i++)
+        stringDestroy(&r2[i]);
+
+    for (i = 0; i < r3Size; i++)
+        stringDestroy(&r3[i]);
+
+    for (i = 0; i < r4Size; i++)
+        stringDestroy(&r4[i]);
+
+    for (i = 0; i < r5Size; i++)
+        stringDestroy(&r5[i]);
 
     stringDestroy(&s1);
+    stringDestroy(&s2);
+    stringDestroy(&s3);
+    stringDestroy(&s4);
+    stringDestroy(&s5);
 }
