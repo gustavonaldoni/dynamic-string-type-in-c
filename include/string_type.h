@@ -30,3 +30,4 @@ int stringCutIndexOf(String, char, int, int);
 String stringCreateEmpty();
 int stringIsEmpty(String);
 String *stringSplit(String, char *, int *);
+String *stringSplit2(String, char *, int *);

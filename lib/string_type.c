@@ -636,7 +636,7 @@ String *stringSplit(String string, char *separator, int *resultArraySize)
     }
 
     token = NULL;
-    result = (String *) malloc(counter * sizeof(String));
+    result = (String *)malloc(counter * sizeof(String));
 
     if (result == NULL)
         return NULL;
@@ -653,4 +653,76 @@ String *stringSplit(String string, char *separator, int *resultArraySize)
 
     *resultArraySize = counter;
     return result;
+}
+
+String *stringSplit2(String string, char *separator, int *resultArraySize)
+{
+    size_t i, j;
+    int firstIndex, lastIndex;
+    String stringSeparator;
+    size_t lengthStringSeparator, lengthString;
+    String *result;
+    int counter;
+
+    firstIndex = 0;
+    lastIndex = 0;
+
+    stringSeparator.content = NULL;
+    result = NULL;
+
+    stringSeparator = stringCreate(separator);
+
+    lengthStringSeparator = stringLength(stringSeparator);
+    lengthString = stringLength(string);
+
+    counter = 0;
+    j = 0;
+
+    if (lengthStringSeparator == 0)
+    {
+        stringDestroy(&stringSeparator);
+        *resultArraySize = 0;
+        return NULL;
+    }
+
+    else if (lengthStringSeparator == 1)
+    {
+        counter = stringCounts(string, stringSeparator);
+
+        if (string.content[0] == *separator &&
+            string.content[lengthString - 1] == *separator)
+            counter--;
+
+        result = (String *)malloc(counter * sizeof(String));
+
+        for (i = 0; i < lengthString; i++)
+        {
+            if (string.content[i] == *separator)
+            {
+                lastIndex = i;
+
+                if (lastIndex - 1 > 0)
+                {
+                    result[j] = stringCut(string, firstIndex, lastIndex - 1);
+                    j++;
+                }
+
+                firstIndex = lastIndex + 1;
+            }
+
+            // Reach the end of the string and didn't find
+            // another separator character.
+            else if (string.content[i] != *separator && i == lengthString - 1)
+            {
+                lastIndex = i;
+                result[j] = stringCut(string, firstIndex, lastIndex);
+            }
+        }
+
+        stringDestroy(&stringSeparator);
+        *resultArraySize = counter;
+        return result;
+    }
+
+    return NULL;
 }

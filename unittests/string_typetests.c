@@ -536,3 +536,56 @@ Test(stringTests, split)
     stringDestroy(&s4);
     stringDestroy(&s5);
 }
+
+Test(stringTests, split2)
+{
+    int i;
+
+    String s1 = stringCreate("AAAAAAbAAAABbAAAAAAAAb");
+    int r1Size = 0;
+    String *r1 = stringSplit2(s1, "", &r1Size);
+
+    String s2 = stringCreate("AAAAAAbAAAABbAAAAAAAAb");
+    int r2Size = 0;
+    String *r2 = stringSplit2(s2, "b", &r2Size);
+
+    String s3 = stringCreate("-abcdef-ghijk-lmno-pqrstuvwxyz");
+    int r3Size = 0;
+    String *r3 = stringSplit2(s3, "-", &r3Size);
+
+    String s4 = stringCreate("-abcdef-ghijk-lmno-pqrstuvwxyz-");
+    int r4Size = 0;
+    String *r4 = stringSplit2(s4, "-", &r4Size);
+
+    cr_expect(r1 == NULL);
+    cr_expect(r1Size == 0);
+
+    cr_expect(strcmp(r2[0].content, "AAAAAA") == 0);
+    cr_expect(strcmp(r2[1].content, "AAAAB") == 0);
+    cr_expect(strcmp(r2[2].content, "AAAAAAAA") == 0);
+    cr_expect(r2Size == 3);
+
+    cr_expect(strcmp(r3[0].content, "abcdef") == 0);
+    cr_expect(strcmp(r3[1].content, "ghijk") == 0);
+    cr_expect(strcmp(r3[2].content, "lmno") == 0);
+    cr_expect(strcmp(r3[3].content, "pqrstuvwxyz") == 0);
+    cr_expect(r3Size == 4);
+
+    cr_expect(strcmp(r4[0].content, "abcdef") == 0);
+    cr_expect(strcmp(r4[1].content, "ghijk") == 0);
+    cr_expect(strcmp(r4[2].content, "lmno") == 0);
+    cr_expect(strcmp(r4[3].content, "pqrstuvwxyz") == 0);
+    cr_expect(r4Size == 4);
+
+    for (i = 0; i < r2Size; i++)
+        stringDestroy(&r2[i]);
+
+    for (i = 0; i < r3Size; i++)
+        stringDestroy(&r3[i]);
+
+    for (i = 0; i < r4Size; i++)
+        stringDestroy(&r4[i]);
+
+    stringDestroy(&s1);
+    stringDestroy(&s2);
+}
